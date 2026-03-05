@@ -44,37 +44,47 @@ import matplotlib.pyplot as plt
 
 # График 1: Остаточная стоимость (Способ 1)
 plt.figure()
-plt.plot(tfame['Y'], tfame['C_ost'], label='Остаточная стоимость (1)')
+plt.plot(tfame['Y'], tfame['C_ost'], marker='o', label='Остаточная стоимость (1)')
+plt.title('Динамика остаточной стоимости (Способ 1)')
+plt.xlabel('Год')
+plt.ylabel('Стоимость')
+plt.grid(True)
 plt.legend()
 plt.savefig('chart1.png')
 
 # График 2: Остаточная стоимость (Способ 2)
 plt.figure()
-plt.plot(tfame2['Y'], tfame2['C_ost'], label='Остаточная стоимость (2)')
+plt.plot(tfame2['Y'], tfame2['C_ost'], marker='s', color='r', label='Остаточная стоимость (2)')
+plt.title('Динамика остаточной стоимости (Способ 2)')
+plt.xlabel('Год')
+plt.ylabel('Стоимость')
+plt.grid(True)
 plt.legend()
 plt.savefig('chart2.png')
 
 # График 3: Пироговая диаграмма амортизации (Способ 1)
-vals1 = Am_lst
-labels = [str(x) for x in range(1, 6)]
-explode = (0.1, 0.1, 0.1, 0.1, 0.1)
-fig1, ax1 = plt.subplots()
-ax1.pie(vals1, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, 
-        wedgeprops={'lw': 1, 'ls': '--', 'edgecolor': "k"}, rotatelabels=True)
-ax1.axis('equal')
+labels = [f'Год {x}' for x in range(1, 6)]
+explode = (0.1, 0, 0, 0, 0)
+fig3, ax3 = plt.subplots()
+ax3.pie(Am_lst, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+ax3.set_title('Доля амортизации по годам (Способ 1)')
 plt.savefig('chart3.png')
 
 # График 4: Пироговая диаграмма амортизации (Способ 2)
-vals2 = Am_lst_2
-fig2, ax2 = plt.subplots()
-ax2.pie(vals2, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, 
-        wedgeprops={'lw': 1, 'ls': '--', 'edgecolor': "k"}, rotatelabels=True)
-ax2.axis('equal')
+fig4, ax4 = plt.subplots()
+ax4.pie(Am_lst_2, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True, startangle=90)
+ax4.set_title('Доля амортизации по годам (Способ 2)')
 plt.savefig('chart4.png')
 
-# График 5: Столбчатая диаграмма амортизации
+# График 5: Сравнение амортизации (Столбчатая диаграмма)
 plt.figure()
-plt.bar(tfame['Y'], tfame['Am_lst'], alpha=0.5, label='Способ 1')
-plt.bar(tfame2['Y'], tfame2['Am_lst_2'], alpha=0.5, label='Способ 2')
+x = [y - 0.2 for y in Y]
+x2 = [y + 0.2 for y in Y]
+plt.bar(x, Am_lst, width=0.4, label='Способ 1', align='center')
+plt.bar(x2, Am_lst_2, width=0.4, label='Способ 2', align='center')
+plt.title('Сравнение ежегодной амортизации')
+plt.xlabel('Год')
+plt.ylabel('Сумма амортизации')
+plt.xticks(Y)
 plt.legend()
 plt.savefig('chart5.png')
