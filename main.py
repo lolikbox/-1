@@ -38,3 +38,15 @@ tfame = pd.DataFrame(table1, columns=['Y', 'C_ost', 'Am_lst'])
 tfame2 = pd.DataFrame(table2, columns=['Y', 'C_ost', 'Am_lst_2'])
 print(tfame)
 print(tfame2)
+
+#Контейнер визуализации
+import matplotlib.pyplot as plt
+plt.figure()
+plt.plot(tfame['Y'], tfame['C_ost'], label='Am')
+plt.legend()
+plt.savefig('chart1.png')
+
+plt.figure()
+plt.plot(tfame2['Y'], tfame2['C_ost'], label='Am2')
+plt.legend()
+plt.savefig('chart2.png')
