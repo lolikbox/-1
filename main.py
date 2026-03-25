@@ -13,12 +13,12 @@ import matplotlib.pyplot as plt
 #2 часть задания (Проверяет Виктор)
 ##  ИНДИВИДУАЛЬНАЯ ЧАСТЬ ЗАДАНИЯ (3 Вариант)
 k, T, C, L = symbols('k T C L')
-C_ost = 20000
+C_ost = 50000
 Am_lst, C_ost_lst = [], []
-for i in range(6):
+for i in range(9):
     Am = (C - L) / T #Что это означает?
     # формула расчета платежа # Правильно
-    val = float(Am.subs({C: 20000, T: 6, L: 0}))
+    val = float(Am.subs({C: 50000, T: 9, L: 0}))
     C_ost -= val
     Am_lst.append(round(val, 2))
     C_ost_lst.append(round(float(C_ost), 2))
@@ -28,13 +28,13 @@ print('C_ost_lst=', C_ost_lst)
 
 #2 способ
 Aj = 0
-C_ost = 20000
+C_ost = 50000
 Am_lst_2 = []
 C_ost_lst_2 = []
-for i in range(6):
+for i in range(9):
     Am = k * 1 / T * (C - Aj)
-    C_ost -= Am.subs({C: 20000, T: 6, k: 2})
-    Am_lst_2.append(round(Am.subs({C: 20000, T: 6, k: 2}), 2))
+    C_ost -= Am.subs({C: 50000, T: 9, k: 2})
+    Am_lst_2.append(round(Am.subs({C: 50000, T: 9, k: 2}), 2))
     Aj += Am
     C_ost_lst_2.append(round(C_ost, 2))
 print('Am_lst_2=', Am_lst_2)
@@ -62,9 +62,9 @@ plt.savefig('chart2_2.png')
 plt.figure()
 
 vals = Am_lst
-labels = [str(x) for x in range(1, 7)]
+labels = [str(x) for x in range(1, 10)]
 #Все правильно str(x) for x in range(1, 7), 5
-explode = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1) #Что это означает? #Список из чисел #Почти правильно
+explode = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1,0.1,0.1,0.1) #Что это означает? #Список из чисел #Почти правильно
 fig, ax = plt.subplots()
 ax.pie(vals,
        labels=labels,
@@ -82,11 +82,11 @@ plt.savefig('chart2_3.png')
 plt.figure()
 
 vals = Am_lst_2
-labels = [str(x) for x in range(1, 7)] #Что это означает? #Список из чисел от одного до семи
+labels = [str(x) for x in range(1, 10)] #Что это означает? #Список из чисел от одного до семи
 #Все правильно 5
 tt1=20
 ее2=40
-explode = (0.1, 0.1, 0.1, 0.1, 0.1,0.1)
+explode = (0.1, 0.1, 0.1, 0.1, 0.1,0.1, 0.1,0.1, 0.1)
 fig, ax = plt.subplots() 
 ax.pie(vals,
        explode=explode,
