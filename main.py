@@ -85,6 +85,7 @@ vals = Am_lst_2
 labels = [str(x) for x in range(1, 7)] #Что это означает? #Список из чисел от одного до семи
 #Все правильно 5
 tt1=20
+ее2=40
 explode = (0.1, 0.1, 0.1, 0.1, 0.1,0.1)
 fig, ax = plt.subplots() 
 ax.pie(vals,
