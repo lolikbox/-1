@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- 
+        БЛОК HEAD: ПОДКЛЮЧЕНИЕ ВНЕШНИХ РЕСУРСОВ И МЕТА-ДАННЫЕ
+        =================================================================
+        Этот блок определяет кодировку, настройки вьюпорта для адаптивности,
+        заголовок страницы и подключает три основные библиотеки:
+        - Bootstrap 5: для сетки, карточек, таблиц и адаптивных стилей.
+        - Font Awesome: для иконок (щит, галочки, замок и др.).
+        - Chart.js: для построения графиков (круговая, гистограмма, линейный).
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валидация транзакций – результаты микросервиса</title>
+    <!-- Bootstrap 5 CSS (стили от Twitter Bootstrap) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (набор иконок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js (библиотека для графиков) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* 
+            ДОПОЛНИТЕЛЬНЫЕ СТИЛИ (CSS)
+            =============================================================
+            .stat-card - стиль для карточек статистики: левая граница, плавный переход,
+                         при наведении карточка приподнимается и появляется тень.
+            .stat-number - крупный жирный шрифт для цифр.
+            .footer - стиль для нижнего колонтитула (серый текст, маленький размер).
+        */
+        body { background-color: #f4f6f9; }
+        .stat-card { border-left: 4px solid; transition: 0.2s; }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1); }
+        .stat-number { font-size: 2.2rem; font-weight: bold; }
+        .badge-goal { background-color: #e9ecef; color: #495057; font-size: 0.7rem; }
+        .footer { font-size: 0.85rem; color: #6c757d; }
+    </style>
+</head>
+<body>
+
+<div class="container py-4">
+    <!-- 
+        ЗАГОЛОВОК СТРАНИЦЫ
+        =============================================================
+        Используется flexbox для расположения заголовка и бейджа "Активен".
+        Иконка щита из Font Awesome подчёркивает тему безопасности.
+    -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h2"><i class="fas fa-shield-alt text-primary me-2"></i>Контейнер валидации транзакций</h1>
+        <span class="badge bg-success"><i class="fas fa-check-circle"></i> Активен</span>
+    </div>
+
+    <!-- 
+        БЛОК КАРТОЧЕК СТАТИСТИКИ
+        =============================================================
+        Здесь будет динамически размещён HTML-код карточек (общее число, валидные,
+        невалидные, среднее время). Пустой контейнер с id="statsCards" заполняется
+        функцией renderStatsCards() из JavaScript.
+    -->
+    <div class="row g-4 mb-4" id="statsCards">
+        <!-- Карточки заполняются скриптом -->
+    </div>
+
+    <!-- 
+        БЛОК ГРАФИКОВ (КРУГОВАЯ ДИАГРАММА + ГИСТОГРАММА)
+        =============================================================
+        Используется сетка Bootstrap: на небольших экранах графики идут друг под другом,
+        на средних и выше – круговая диаграмма занимает 5 колонок, гистограмма – 7.
+        Каждый график обёрнут в карточку с тенью и заголовком.
+    -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white fw-bold">Распределение транзакций</div>
+                <div class="card-body text-center">
+                    <canvas id="pieChart" height="250"></canvas> <!-- canvas для круговой диаграммы -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-header bg-white fw-bold">Гистограмма времени обработки (мс)</div>
+                <div class="card-body">
+                    <canvas id="histogramChart" height="250"></canvas> <!-- canvas для гистограммы -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        ЛИНЕЙНЫЙ ГРАФИК ДИНАМИКИ ЗАДЕРЖЕК
+        =============================================================
+        Показывает изменение времени обработки для последних 100 транзакций.
+        Помогает увидеть тенденции (например, рост задержек).
+    -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white fw-bold">Динамика задержек (последние 100 транзакций)</div>
+                <div class="card-body">
+                    <canvas id="lineChart" height="100"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+        ТАБЛИЦА СООТВЕТСТВИЯ ТРЕБОВАНИЯМ ТЗ
+        =============================================================
+        Сравнивает полученные показатели с требованиями из технического задания:
+        - доля обнаружения >= 99%
+        - задержка <= 10 мс
+        - доступность >= 99.9%
+        Для каждого параметра отображается статус (соответствует/не соответствует).
+    -->
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white fw-bold"><i class="fas fa-clipboard-list me-2"></i>Соответствие требованиям ТЗ</div>
+        <div class="card-body">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr><th>Параметр</th><th>Значение</th><th>Требование</th><th>Статус</th></tr>
+                </thead>
+                <tbody id="complianceTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- НИЖНИЙ КОЛОНТИТУЛ с информацией о продукте -->
+    <div class="footer mt-4 text-center">
+        <i class="fas fa-lock"></i> Контейнер защиты от некорректной структуры данных транзакций<br>
+        Задержка ≤10 мс | Доступность 99.9% | Обнаружение ≥99%
+    </div>
+</div>
+
+<script>
+    // ======================== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ========================
+    // 
+    // stats – объект, содержащий основные метрики работы микросервиса.
+    // В реальном Django-приложении эти значения передаются из view-функции
+    // через контекст шаблона (например, {{ total_transactions }}).
+    // Здесь для демонстрации заданы примерные числа (1500 транзакций, 8% ошибок).
+    // 
+    const stats = {
+        total: 1500,          // общее количество обработанных транзакций
+        valid: 1380,          // количество транзакций, признанных корректными
+        invalid: 120,         // количество транзакций с некорректной структурой
+        avg_time_ms: 1.45,    // среднее время обработки одной транзакции в миллисекундах
+        detection_rate: 8.0   // доля обнаруженных некорректных транзакций (invalid/total * 100)
+    };
+
+    // processingTimes – массив, содержащий время обработки каждой транзакции (в мс).
+    // В реальном коде этот массив должен быть передан из Python (например, через json_script).
+    // Здесь мы генерируем 1500 случайных значений от 0.5 до 2.5 мс, чтобы имитировать работу.
+    const processingTimes = [];
+    for (let i = 0; i < 1500; i++) {
+        processingTimes.push(0.5 + Math.random() * 2.0);
+    }
+
+    // ======================== ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК ========================
+    // 
+    // renderStatsCards() – динамически создаёт HTML-код для четырёх карточек
+    // и вставляет его в контейнер <div id="statsCards">.
+    // Используются шаблонные строки (``) для подстановки значений из stats.
+    // Каждая карточка имеет свою цветовую границу (синий, зелёный, красный, оранжевый)
+    // и класс stat-number для крупного шрифта.
+    function renderStatsCards() {
+        const cardsContainer = document.getElementById('statsCards');
+        cardsContainer.innerHTML = `
+            <div class="col-md-3">
+                <div class="card stat-card border-0 shadow-sm" style="border-left-color: #0d6efd;">
+                    <div class="card-body">
+                        <div class="text-muted small text-uppercase">Всего транзакций</div>
+                        <div class="stat-number">${stats.total}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card border-0 shadow-sm" style="border-left-color: #198754;">
+                    <div class="card-body">
+                        <div class="text-muted small text-uppercase">Валидные</div>
+                        <div class="stat-number text-success">${stats.valid}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card border-0 shadow-sm" style="border-left-color: #dc3545;">
+                    <div class="card-body">
+                        <div class="text-muted small text-uppercase">Невалидные (заблок.)</div>
+                        <div class="stat-number text-danger">${stats.invalid}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stat-card border-0 shadow-sm" style="border-left-color: #fd7e14;">
+                    <div class="card-body">
+                        <div class="text-muted small text-uppercase">Среднее время (мс)</div>
+                        <div class="stat-number">${stats.avg_time_ms.toFixed(2)}</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // ======================== КРУГОВАЯ ДИАГРАММА ========================
+    // 
+    // initPieChart() – создаёт круговую диаграмму на canvas с id="pieChart".
+    // Chart.js принимает объект конфигурации:
+    //   type: 'pie' – тип диаграммы.
+    //   data.labels – подписи секторов.
+    //   data.datasets[0].data – числовые значения (valid, invalid).
+    //   backgroundColor – цвета секторов.
+    //   options.plugins.tooltip – настройка всплывающих подсказок (показывают процент).
+    function initPieChart() {
+        const ctx = document.getElementById('pieChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Валидные', 'Невалидные'],
+                datasets: [{
+                    data: [stats.valid, stats.invalid],
+                    backgroundColor: ['#198754', '#dc3545'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { 
+                        callbacks: { 
+                            // В подсказке показываем количество и процент от общего числа
+                            label: (ctx) => `${ctx.label}: ${ctx.raw} (${((ctx.raw/stats.total)*100).toFixed(1)}%)` 
+                        } 
+                    }
+                }
+            }
+        });
+    }
+
+    // ======================== ГИСТОГРАММА ВРЕМЕНИ ОБРАБОТКИ ========================
+    // 
+    // initHistogram() – строит гистограмму (столбчатую диаграмму) на основе массива processingTimes.
+    // Алгоритм:
+    //   1. Определяем минимальное и максимальное время (minTime, maxTime).
+    //   2. Разбиваем весь диапазон на bins (20) равных интервалов.
+    //   3. Для каждого значения времени находим индекс интервала и увеличиваем счётчик hist[idx].
+    //   4. Формируем подписи для оси X (например, "0.50-0.60").
+    //   5. Создаём bar-диаграмму с помощью Chart.js.
+    function initHistogram() {
+        const bins = 20;                           // количество интервалов
+        const minTime = Math.min(...processingTimes);
+        const maxTime = Math.max(...processingTimes);
+        const binWidth = (maxTime - minTime) / bins;   // ширина одного интервала
+        const hist = new Array(bins).fill(0);          // массив для подсчёта частот
+
+        // Подсчёт: для каждого замера определяем номер интервала
+        for (let t of processingTimes) {
+            let idx = Math.min(Math.floor((t - minTime) / binWidth), bins-1);
+            hist[idx]++;
+        }
+
+        // Формирование подписей для оси X (диапазоны)
+        const binLabels = [];
+        for (let i = 0; i < bins; i++) {
+            let start = (minTime + i * binWidth).toFixed(2);
+            let end = (minTime + (i+1) * binWidth).toFixed(2);
+            binLabels.push(`${start}-${end}`);
+        }
+
+        const ctx = document.getElementById('histogramChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: binLabels,
+                datasets: [{
+                    label: 'Количество транзакций',
+                    data: hist,
+                    backgroundColor: '#0d6efd',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: { 
+                    y: { title: { display: true, text: 'Частота' } }, 
+                    x: { title: { display: true, text: 'Время обработки (мс)' }, ticks: { rotation: 45 } } 
+                }
+            }
+        });
+    }
+
+    // ======================== ЛИНЕЙНЫЙ ГРАФИК ДИНАМИКИ ========================
+    // 
+    // initLineChart() – строит линейный график, показывающий изменение времени обработки
+    // по порядку транзакций. Для наглядности берутся только последние 100 значений.
+    //   - lastN = 100 (или меньше, если массив короче)
+    //   - recent = срез массива processingTimes от конца (-lastN)
+    //   - labels – номера транзакций от 1 до lastN
+    //   - dataset – данные по оси Y (время в мс)
+    //   - fill: true – заливка под линией, tension: 0.2 – небольшое сглаживание.
+    function initLineChart() {
+        const lastN = Math.min(100, processingTimes.length);
+        const recent = processingTimes.slice(-lastN);
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: recent.map((_, i) => i+1),   // номера от 1 до 100
+                datasets: [{
+                    label: 'Время обработки (мс)',
+                    data: recent,
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13,110,253,0.05)',
+                    fill: true,
+                    tension: 0.2,
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { 
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.raw} мс` } } 
+                },
+                scales: { 
+                    y: { title: { display: true, text: 'мс' }, suggestedMin: 0 } 
+                }
+            }
+        });
+    }
+
+    // ======================== ТАБЛИЦА СООТВЕТСТВИЯ ТЗ ========================
+    // 
+    // renderCompliance() – заполняет таблицу с id="complianceTable", сравнивая текущие
+    // показатели с требованиями технического задания (ЛР1, вариант 35).
+    // Для каждого параметра вычисляется булево значение (соответствует/нет),
+    // и на основе этого выводится бейдж "Соответствует" (зелёный) или "Не соответствует" (красный).
+    function renderCompliance() {
+        const detectionOk = stats.detection_rate >= 99.0;
+        const latencyOk = stats.avg_time_ms <= 10.0;
+        const availabilityOk = true; // в данной симуляции считаем доступность выполненной
+        const tbody = document.getElementById('complianceTable');
+        tbody.innerHTML = `
+            <tr>
+                <td>Доля обнаружения невалидных транзакций</td>
+                <td>${stats.detection_rate.toFixed(2)}%</td>
+                <td>≥99%</td>
+                <td>${detectionOk ? '<span class="badge bg-success">✓ Соответствует</span>' : '<span class="badge bg-danger">✗ Не соответствует</span>'}</td>
+            </tr>
+            <tr>
+                <td>Средняя задержка обработки</td>
+                <td>${stats.avg_time_ms.toFixed(2)} мс</td>
+                <td>≤10 мс</td>
+                <td>${latencyOk ? '<span class="badge bg-success">✓ Соответствует</span>' : '<span class="badge bg-danger">✗ Не соответствует</span>'}</td>
+            </tr>
+            <tr>
+                <td>Коэффициент доступности</td>
+                <td>99.9% (расчётный)</td>
+                <td>≥99.9%</td>
+                <td><span class="badge bg-success">✓ Соответствует</span></td>
+            </tr>
+        `;
+    }
+
+    // ======================== ИНИЦИАЛИЗАЦИЯ ВСЕХ КОМПОНЕНТОВ ========================
+    // 
+    // При загрузке страницы вызываются все функции отрисовки.
+    // Порядок не важен, так как каждая работает с независимым контейнером.
+    renderStatsCards();
+    initPieChart();
+    initHistogram();
+    initLineChart();
+    renderCompliance();
+</script>
+
+<!-- 
+    ======================== ОПИСАНИЕ ШАБЛОНА (DESCRIPTION) ========================
+    Название шаблона: Мониторинг контейнера валидации транзакций
+    Версия: 1.0
+    Описание: 
+        Данный HTML-шаблон предназначен для визуализации результатов работы 
+        микросервиса, проверяющего корректность структуры транзакций в соответствии
+        с техническим заданием (вариант 35). Он отображает:
+          - Карточки с общей статистикой (всего, валидные, невалидные, среднее время);
+          - Круговую диаграмму распределения транзакций;
+          - Гистограмму времени обработки (20 интервалов);
+          - Линейный график динамики задержек (последние 100 транзакций);
+          - Таблицу соответствия требованиям ТЗ (задержка ≤10 мс, обнаружение ≥99%, доступность 99.9%).
+    Переменные, которые пользователь может изменить (через контекст Django или напрямую в скрипте):
+        - stats.total          (общее количество транзакций, целое число)
+        - stats.valid          (количество валидных транзакций)
+        - stats.invalid        (количество невалидных, заблокированных)
+        - stats.avg_time_ms    (среднее время обработки, число с плавающей точкой)
+        - stats.detection_rate (процент обнаружения, рассчитывается как invalid/total*100)
+        - processingTimes      (массив чисел – время обработки каждой транзакции в мс)
+    Требования к развертыванию на Replit (Django):
+        1. Установить Django: pip install django
+        2. Создать проект: django-admin startproject myproject
+        3. Создать приложение: python manage.py startapp dashboard
+        4. Поместить этот файл как dashboard/templates/dashboard/index.html
+        5. В файле dashboard/views.py написать функцию, передающую контекст:
+           from django.shortcuts import render
+           def index(request):
+               context = { 'total': 1500, 'valid': 1380, ... }
+               return render(request, 'dashboard/index.html', context)
+        6. Прописать маршруты в urls.py
+        7. Запустить сервер: python manage.py runserver 0.0.0.0:8000
+    Лицензия: MIT (свободное использование, модификация, распространение с указанием авторства)
+    Автор: Сватков Тихон Леонидович, группа КН-23-10
+    Дата создания: 2025
+    Версия лабораторной работы: 3 (индивидуальная часть)
+-->
+</body>
+</html>

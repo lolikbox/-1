@@ -1,50 +1,43 @@
-<!DOCTYPE html> <!-- Объявление типа документа — указывает браузеру, что это HTML5 -->
-<html> <!-- Открывающий тег корневого элемента HTML-документа -->
-  <head> <!-- Начало блока заголовка — содержит мета-информацию о странице -->
-    <meta charset="utf-8"> <!-- Устанавливает кодировку страницы UTF-8 для корректного отображения символов -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Настраивает масштаб и ширину страницы для адаптивного отображения на мобильных устройствах -->
-    <title>Task Tracker</title> <!-- Задаёт заголовок вкладки браузера -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
- rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <!-- Подключает CSS-библиотеку Bootstrap 5 для стилизации элементов страницы -->
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta charset="utf-8"> <!-- Устанавливает кодировку UTF-8 для корректного отображения символов -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Адаптация страницы под мобильные устройства: ширина равна ширине экрана, масштаб 100% -->
+    <title>Task Tracker</title> <!-- Заголовок вкладки браузера -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <!-- Подключает CSS Bootstrap 5 для стилизации -->
+  </head>
+  <body> 
+    {% csrf_token %} <!-- Защита от CSRF-атак в Django: вставляет скрытый токен (для форм, но обычно внутри <form>) -->
+      <div class="container"> <!-- Контейнер Bootstrap для центрирования и отступов -->
+        <br> 
+        <h2><strong>Task Tracker Сватков Т. Л. 📝 </strong></h2> <!-- Заголовок второго уровня с жирным начертанием и эмодзи -->
 
-  </head> <!-- Конец блока заголовка -->
-  <body> <!-- Начало тела документа — здесь располагается видимый контент страницы -->
-    {% csrf_token %} <!-- Django-тег для защиты от CSRF-атак — генерирует скрытый токен безопасности -->
-      <div class="container"> <!-- Блок-контейнер Bootstrap — центрирует и ограничивает ширину содержимого -->
-        <br> <!-- Перенос строки — добавляет вертикальный отступ -->
-        <h2><strong>Task Tracker Сватков Т. Л. 📝 </strong></h2> <!-- Заголовок второго уровня с жирным текстом — название приложения -->
-
-        <br> <!-- Перенос строки — добавляет вертикальный отступ -->
-         <ul class="list-group"> <!-- Ненумерованный список со стилем Bootstrap "list-group" -->
-
-            <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу (mb-2 = margin-bottom) -->
-              1. Проснуться. <!-- Текст первого пункта задачи -->
-            </li> <!-- Закрытие элемента списка -->
-            <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-              2. Отжаться 60 раз. <!-- Текст второго пункта задачи -->
-            </li> <!-- Закрытие элемента списка -->
-            <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-              3. Пробежать 10 км. <!-- Текст третьего пункта задачи -->
-            </li> <!-- Закрытие элемента списка -->
-           <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-             4. Прочитать лекцию по Django. <!-- Текст четвёртого пункта задачи -->
-           </li> <!-- Закрытие элемента списка -->
-           <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-             5. Рассмотреть пример шаблона по Django. <!-- Текст пятого пункта задачи -->
-           </li> <!-- Закрытие элемента списка -->
-           <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-             6. Создать bash скрипт для развертывания шаблона приложения. <!-- Текст шестого пункта задачи -->
-           </li> <!-- Закрытие элемента списка -->
-            <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу -->
-              7. Поспать. <!-- Текст седьмого пункта задачи -->
-            </li> <!-- Закрытие элемента списка -->
-           
-           
-        </ul> <!-- Конец ненумерованного списка -->
-
-      </div> <!-- Конец контейнера -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
- integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- Подключает JavaScript-библиотеку Bootstrap 5 для интерактивных компонентов -->
-
-  </body> <!-- Конец тела документа -->
-</html> <!-- Закрывающий тег корневого элемента HTML-документа -->
+        <br> 
+         <ul class="list-group"> <!-- Неупорядоченный список с классом Bootstrap для группировки элементов -->
+            
+            <li class="list-group-item mb-2"> <!-- Элемент списка с отступом снизу 2 (margin-bottom) -->
+              1. Проснуться.
+            </li> 
+            <li class="list-group-item mb-2">
+              2. Отжаться 60 раз.
+            </li> 
+            <li class="list-group-item mb-2">
+              3. Пробежать 10 км.
+            </li>
+           <li class="list-group-item mb-2">
+             4. Прочитать лекцию по Django.
+           </li> 
+           <li class="list-group-item mb-2">
+             5. Рассмотреть пример шаблона по Django.
+           </li> 
+           <li class="list-group-item mb-2">
+             6. Создать bash скрипт для развертывания шаблона приложения.
+           </li>
+            <li class="list-group-item mb-2">
+              7. Поспать.
+            </li>           
+        </ul> 
+      </div> 
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- Подключает JavaScript-бандл Bootstrap (включает Popper) для работы интерактивных компонентов -->
+  </body>
+</html> 
