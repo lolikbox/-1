@@ -1,8 +1,5 @@
-import os
 import random
 import time
-import pandas as pd
-import matplotlib.pyplot as plt
 
 def run_validation(N=1500, invalid_rate=0.08):
     """Запускает симуляцию валидации транзакций и возвращает статистику."""
