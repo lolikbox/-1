@@ -1,0 +1,121 @@
+﻿Transaction,DetectionCategory,Errors
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": true, ""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'id' must be integer
+"{""amount"": 50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Missing required field: id
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 104, ""amount"": -50.0, ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' value -50.0 is less than minimum 0
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 101, ""amount"": ""abc"", ""date"": ""2025-12-25""}",TRUE_POSITIVE,Field 'amount' must be number
+"{""id"": 103, ""amount"": 200.0}",TRUE_POSITIVE,Missing required field: date
+"{""id"": 102, ""amount"": 100.0, ""date"": ""25-12-2025""}",TRUE_POSITIVE,Field 'date' has invalid date format (expected YYYY-MM-DD)
